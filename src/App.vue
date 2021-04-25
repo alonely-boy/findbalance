@@ -23,43 +23,45 @@ export default {
     calculateBalance() {
       this.ans = -1; //初始化结果
       let arr = this.getArr;
-      try {
-        //throw Error终止forEach
-        arr.forEach((item) => {
-          if (typeof item !== "number" || Number.isNaN(item)) {
-            throw Error("输入数组有误，请检查!");
-          }
-        });
-      } catch (error) {
-        alert(error);
-        return;
-      }
+      if (arr) {
+        try {
+          //throw Error终止forEach
+          arr.forEach((item) => {
+            if (typeof item !== "number" || Number.isNaN(item)) {
+              throw Error("输入数组有误，请检查!");
+            }
+          });
+        } catch (error) {
+          alert(error);
+          return;
+        }
 
-      /*创建左数组，右数组，左数组元素为从左至右元素和，右数组同理，为计算数组和，需
+        /*创建左数组，右数组，左数组元素为从左至右元素和，右数组同理，为计算数组和，需
         初始化第一个元素为0
       */
-      let leftArr = [],
-        rightArr = [],
-        len = arr.length,
-        ans = [];
+        let leftArr = [],
+          rightArr = [],
+          len = arr.length,
+          ans = [];
 
-      leftArr[0] = 0;
-      rightArr[len - 1] = 0;
-      for (let i = 1; i < len; i++) {
-        leftArr[i] = leftArr[i - 1] + arr[i - 1];
-      }
-      for (let i = len - 2; i >= 0; i--) {
-        rightArr[i] = rightArr[i + 1] + arr[i + 1];
-      }
-      for (let i = 0; i < len; i++) {
-        if (leftArr[i] == rightArr[i]) {
-          ans.push(i);
+        leftArr[0] = 0;
+        rightArr[len - 1] = 0;
+        for (let i = 1; i < len; i++) {
+          leftArr[i] = leftArr[i - 1] + arr[i - 1];
         }
-      }
-      if (ans.length) {
-        this.ans = ans;
-      } else {
-        this.ans = -1;
+        for (let i = len - 2; i >= 0; i--) {
+          rightArr[i] = rightArr[i + 1] + arr[i + 1];
+        }
+        for (let i = 0; i < len; i++) {
+          if (leftArr[i] == rightArr[i]) {
+            ans.push(i);
+          }
+        }
+        if (ans.length) {
+          this.ans = ans;
+        } else {
+          this.ans = -1;
+        }
       }
     },
   },
